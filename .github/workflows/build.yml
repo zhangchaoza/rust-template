@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PROJECT_NAME: rust-gh-example
+    strategy:
+      matrix:
+        template: ["clap_gitversion"]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -17,7 +20,7 @@ jobs:
         uses: cargo-generate/cargo-generate-action@v0.20.0
         with:
           name: ${{ env.PROJECT_NAME }}
-          template: template
+          template: ${{ matrix.template }}
           arguments: "--template-values-file .github/workflows/template_values.toml --verbose"
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -29,3 +32,4 @@ jobs:
           mv $PROJECT_NAME ${{ runner.temp }}/
           cd ${{ runner.temp }}/$PROJECT_NAME
           cargo check --tests
+          rm -rf ${{ runner.temp }}/$PROJECT_NAME
