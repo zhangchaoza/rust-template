@@ -1,0 +1,28 @@
+[package]
+name = "{{project-name}}"
+version = "0.1.0"
+edition = "2021"
+authors = ["{{authors}}"]
+description = "{{project-description}}"
+repository = "https://github.com/{{gh-username}}/{{project-name}}"
+license = "MIT OR Apache-2.0"
+
+[profile.release]
+strip = true      # Automatically strip symbols from the binary.
+opt-level = "z"   # Optimize for size.
+lto = true
+codegen-units = 1
+
+[dependencies]
+clap = { version = "4.5.8", features = [
+  "derive",
+  "std",
+], default-features = true }
+log = "0.4.22"
+once_cell = { default-features = false, version = "1.19.0", features = ["std"] }
+serde = { version = "1.0.203", default-features = false, features = [
+  "serde_derive",
+] }
+serde_json = "1.0.120"
+simplelog = "0.12.2"
+time = { version = "0.3.36", default-features = false }
