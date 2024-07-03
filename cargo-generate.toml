@@ -1,2 +1,2 @@
 [template]
-sub_templates = ["clap_gitversion"]
+sub_templates = ["clap_gitversion", "clap_gitversion_ws"]

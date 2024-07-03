@@ -12,7 +12,7 @@ jobs:
       PROJECT_NAME: rust-gh-example
     strategy:
       matrix:
-        template: ["clap_gitversion"]
+        template: ["clap_gitversion","clap_gitversion_ws"]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
