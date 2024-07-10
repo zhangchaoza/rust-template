@@ -1,6 +1,5 @@
 mod cli_app;
 mod logging;
-mod versions;
 
 use anyhow::Result;
 

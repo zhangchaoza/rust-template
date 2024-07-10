@@ -28,7 +28,7 @@ where
 
 #[derive(Parser, Debug, PartialEq)]
 #[command(author, about)]
-#[command(version = crate::versions::VERSION.as_str())]
+#[command(version)]
 #[command(long_about = None)]
 pub(crate) struct Cli {
     /// log verbose
