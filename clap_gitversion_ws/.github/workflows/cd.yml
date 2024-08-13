@@ -107,7 +107,7 @@ jobs:
             target/{{ "${{ matrix.job.target }}" }}/release/{{project-name}}-*.tar.gz
             target/{{ "${{ matrix.job.target }}" }}/release/{{project-name}}-*.sha256
         env:
-          GITHUB_TOKEN: {{ "${{ secrets.GITHUB_TOKEN }}" }}
+          GITHUB_TOKEN: {{ "${{ secrets.MY_GITHUB_TOKEN }}" }}
   publish-cargo:
     name: Publishing to Cargo
     runs-on: ubuntu-latest
