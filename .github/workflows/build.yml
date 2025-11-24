@@ -15,7 +15,7 @@ jobs:
         template: ["clap_gitversion","clap_gitversion_ws"]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Run cargo generate
         uses: cargo-generate/cargo-generate-action@v0.20.0
         with:
