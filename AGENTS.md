@@ -4,9 +4,12 @@ ijfw_schema: 1
 type: software
 primary_type: software
 secondary_types: []
-confidence: 0.907
-detected_at: 2026-11-02T09:10:28.543Z
+confidence: 0.943
+detected_at: 2026-11-02T10:28:22.823Z
 signals:
+  - kind: agents_md_frontmatter
+    weight: 0.9
+    value: software
   - kind: manifest
     weight: 0.9
     manifests: [Cargo.toml, Cargo.toml, Cargo.toml, Cargo.toml]
