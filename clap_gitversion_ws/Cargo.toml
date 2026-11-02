@@ -1,21 +1,23 @@
 [package]
 name = "{{project-name}}"
 version = "0.1.0"
-edition = "2021"
-authors = ["{{authors}}"]
+edition = "2024"
 description = "{{project-description}}"
 repository = "https://github.com/{{gh-username}}/{{project-name}}"
 license = "MIT OR Apache-2.0"
 
+[package.metadata]
+authors = ["{{authors}}"]
+
 [workspace]
 members = ["crates/cli"]
 
+[dependencies]
+anyhow = { version = "1.0.104", default-features = false }
+cli = { path = "crates/cli" }
+
 [profile.release]
-strip = true      # Automatically strip symbols from the binary.
-opt-level = "z"   # Optimize for size.
+opt-level = "z"  # Optimize for size.
+strip = true  # Automatically strip symbols from the binary.
 lto = true
 codegen-units = 1
-
-[dependencies]
-anyhow = { version = "1.0.86", default-features = false }
-cli = { path = "crates/cli" }

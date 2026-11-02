@@ -1,0 +1,15 @@
+[package]
+name = "cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = { version = "1.0.102", default-features = false }
+clap = { version = "4.4.18", default-features = false, features = ["color", "derive", "error-context", "help", "std", "suggestions", "usage"] }
+log = "0.4.29"
+once_cell = { version = "1.19.0", default-features = false, features = ["std"] }
+serde = { version = "1.0.228", default-features = false, features = ["serde_derive"] }
+simplelog = "0.11.2"
+
+[build-dependencies]
+gitversion_build = "0.1.5"

@@ -1,0 +1,13 @@
+[toolchain]
+# https://rust-lang.github.io/rustup/concepts/toolchains.html
+channel = "1.75.0"
+components = ["rust-analyzer"]
+# https://doc.rust-lang.org/rustc/targets/index.html
+# targets = [
+#   "x86_64-pc-windows-gnu",
+#   "i686-pc-windows-gnu",
+#   "x86_64-pc-windows-msvc",
+#   "i686-pc-windows-msvc",
+# ]
+# https://rust-lang.github.io/rustup/concepts/profiles.html
+profile = "default"
