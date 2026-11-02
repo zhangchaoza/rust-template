@@ -12,10 +12,18 @@ jobs:
       PROJECT_NAME: rust-gh-example
     strategy:
       matrix:
-        template: ["clap_gitversion","clap_gitversion_ws"]
+        template:
+          - "clap_gitversion"
+          - "clap_gitversion_175"
+          - "clap_gitversion_ws"
+          - "clap_gitversion_ws_175"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v3.2.1
+        with:
+          versionSpec: "6.8.x"
       - name: Run cargo generate
         uses: cargo-generate/cargo-generate-action@v0.20.0
         with:
