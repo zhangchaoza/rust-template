@@ -1,0 +1,129 @@
+[config]
+skip_core_tasks = true
+default_to_workspace = false
+
+# ── Init ─────────────────────────────────────────────────────────────────────
+
+[tasks.init]
+description = "Initialize the repository with Git hooks"
+command = "git"
+args = ["config", "core.hooksPath", ".githooks"]
+
+# ── Default ──────────────────────────────────────────────────────────────────
+
+[tasks.default]
+description = "Run the default dev workflow: format check → clippy → test → build"
+dependencies = ["init", "fmt-check", "clippy", "test", "build"]
+
+# ── Build ────────────────────────────────────────────────────────────────────
+
+[tasks.build]
+description = "Build the workspace in debug mode"
+dependencies = ["init", "build-cli"]
+
+[tasks.build-release]
+description = "Build the workspace in release mode"
+dependencies = ["init", "build-cli-release"]
+
+[tasks.build-cli]
+description = "Build the cli package"
+command = "cargo"
+args = ["build"]
+
+[tasks.build-cli-release]
+description = "Build the cli package in release"
+command = "cargo"
+args = ["build", "--release"]
+
+# ── Test ─────────────────────────────────────────────────────────────────────
+
+[tasks.test]
+description = "Run all workspace tests"
+command = "cargo"
+args = ["test", "--all-features", "--workspace"]
+
+[tasks.test-doc]
+description = "Run doctests only"
+command = "cargo"
+args = ["test", "--doc", "--all-features", "--workspace"]
+
+# ── Lint & Format ────────────────────────────────────────────────────────────
+
+[tasks.fmt]
+description = "Format all Rust code"
+command = "cargo"
+args = ["fmt", "--all"]
+
+[tasks.fmt-check]
+description = "Check formatting without modifying"
+command = "cargo"
+args = ["fmt", "--all", "--check"]
+
+[tasks.clippy]
+description = "Run clippy with strict warnings"
+command = "cargo"
+args = [
+  "clippy",
+  "--all-targets",
+  "--all-features",
+  "--workspace",
+  "--fix",
+  "--allow-dirty",
+  "--allow-staged",
+]
+
+[tasks.clippy-check]
+description = "Check clippy with strict warnings"
+command = "cargo"
+args = ["clippy", "--all-targets", "--all-features", "--workspace", "--", "-D", "warnings"]
+
+# ── Clean ────────────────────────────────────────────────────────────────────
+
+[tasks.clean]
+description = "Clean all build artifacts"
+command = "cargo"
+args = ["clean"]
+
+[tasks.clean-all]
+description = "Deep clean: cargo clean + remove target/"
+script_runner = "@rust"
+script = [
+  "let _ = std::fs::remove_dir_all(\"target\");",
+]
+
+# ── Development helpers ──────────────────────────────────────────────────────
+
+[tasks.check]
+description = "Quick check without full compilation"
+command = "cargo"
+args = ["check", "--workspace", "--all-features"]
+
+[tasks.tree]
+description = "Show dependency tree"
+command = "cargo"
+args = ["tree", "--workspace", "--all-features"]
+
+# NOTE: Requires cargo-outdated: cargo install cargo-outdated
+# [tasks.outdated]
+# description = "Show outdated dependencies"
+# command = "cargo"
+# args = ["outdated", "--workspace"]
+
+[tasks.ls]
+description = "List all defined tasks"
+command = "cargo"
+args = ["make", "--list-all-steps"]
+
+# ── Release ──────────────────────────────────────────────────────────────────
+
+# NOTE: Create .scripts/package.py before using this task
+# [tasks.package]
+# description = "Publish all crates to crates.io (in dependency order)"
+# dependencies = ["build-release"]
+# script = { file = ".scripts/package.py", absolute_path = false }
+
+# ── Pre-commit hook ──────────────────────────────────────────────────────────
+
+[tasks.pre-commit]
+description = "Run before each commit: format check → clippy → test → doc"
+dependencies = ["fmt-check", "clippy-check", "test"]

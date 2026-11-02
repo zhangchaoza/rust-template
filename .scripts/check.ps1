@@ -11,7 +11,7 @@ foreach ($file in Get-ChildItem) {
     $projectName = "$($file.BaseName)_test_proj"
     cargo-generate generate -p $file.FullName -n $projectName --template-values-file ../.github/workflows/template_values.toml
     Push-Location $projectName
-    cargo check --workspace --all-targets
+    cargo make check --allow-no-vcs
     Pop-Location
     Pop-Location
 }
